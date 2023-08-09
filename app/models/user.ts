@@ -14,10 +14,6 @@ const userSchema: Schema = new Schema(
         displayName: {
             type: String,
             default: "Inteli User"
-        },
-        role: {
-            type: String,
-            default: 0
         }
     },
     {

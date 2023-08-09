@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 import app from "./config/express"
 import application from "./constants/application"
-import ScheduledTasks from "./scheduled_tasks"
 
 const databaseUri = application.env.databaseUri
 const port = application.env.serverPort
@@ -14,7 +13,7 @@ mongoose
         console.log(`Connected to database at : ${databaseUri}`);
 
         //Start scheduled tasks
-        ScheduledTasks.startBackgroundTasks()
+        //ScheduledTasks.startBackgroundTasks()
 
         //Listen express server
         app.listen(port, () => {

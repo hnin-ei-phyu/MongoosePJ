@@ -1,4 +1,3 @@
-import { log } from "console"
 import { Task } from "toad-scheduler"
 
 const test = new Task(

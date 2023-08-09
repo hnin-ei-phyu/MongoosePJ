@@ -1,9 +1,8 @@
 import express from "express"
-import path from "path"
 import bodyParser from "body-parser"
 import fileUpload from "express-fileupload"
 import validator from "express-validator"
-import application from "../constants/application"
+import UserRouter from "../router/userRouter"
 
 const app: express.Application = express()
 
@@ -19,6 +18,7 @@ app.use(function (req, res, next) {
     next()
 })
 
-//pp.use(application.url.base)
+//router
+app.use("/api/user",UserRouter)
 
 export default app
