@@ -10,10 +10,13 @@ const application = {
     url: {
         base
     },
+    adminRoles: ["Admin", "Editor"],
+    userRoles: ["Seller", "Buyer"],
     env: {
         serverPort: process.env.SERVER_PORT || 3000,
         databaseUri: process.env.DATABASE_URI || "mongodb://localhost:27017/testMongoose",
-        domainName: process.env.DOMAIN_NAME || "localhost:3000"
+        domainName: process.env.DOMAIN_NAME || "localhost:3000",
+        authSecret: process.env.TOKEN_SECRET_KEY || "jwt_default_key",
     }
 }
 
