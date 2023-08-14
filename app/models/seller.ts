@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose"
 import application from "../constants/application"
 
-const buyerSchema : Schema = new Schema(
+const sellerSchema : Schema = new Schema(
     {
         username: {
             type: String,
@@ -44,5 +44,5 @@ const buyerSchema : Schema = new Schema(
         timestamps: true
     }
 )
-const Buyer = model("Buyer", buyerSchema)
-export default Buyer
+const Seller = model("Seller", sellerSchema)
+export default Seller

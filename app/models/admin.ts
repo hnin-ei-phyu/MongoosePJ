@@ -3,7 +3,7 @@ import application from "../constants/application"
 
 const adminSchema: Schema = new Schema(
     {
-        name: {
+        username: {
                 type: String,
                 required: true,
                 unique: true
@@ -14,11 +14,13 @@ const adminSchema: Schema = new Schema(
             unique: true
         },
         phoneNum: {
-            type: Number,
+            type: String,
+            required: true
 
         },
         password: {
             type: String,
+            required: true
 
         },
         role: {

@@ -1,65 +1,63 @@
-import Admin from "../models/admin"
-import express, { NextFunction } from "express"
+import Buyer from "../models/buyer"
+import express from "express"
 import HttpResponse from "../utilities/httpResponse"
 import Helper from "../utilities/helper"
 import { StatusCodes } from "http-status-codes"
 import AuthedRequest from "../interfaces/authedRequest"
 
-class AdminController{
-
-     async get(req: express.Request,res: express.Response): Promise<void> {
-        const adminId: string = req.params.id 
-
-        try {
-            const admin = await Admin.findById(adminId).lean()
-            if(!admin) {
-               return HttpResponse.respondError(res,"Admin not Found!",StatusCodes.NOT_FOUND)
-            }
-            HttpResponse.respondResult(res,admin)
-        } catch (error) {
-            HttpResponse.respondError(res,error)
-        }
-
-    }
-
-     async delete(req: express.Request, res: express.Response): Promise<void> {
-        const adminId: string = req.params.id 
+class BuyerController{
+    async get(req: express.Request, res: express.Response): Promise<void> {
+        const buyerId: string = req.params.id 
 
         try {
-            const admin = await Admin.findById(adminId)
-            if(!admin) {
-               return HttpResponse.respondError(res,"Admin not Found!",StatusCodes.NOT_FOUND)
+            const buyer = await Buyer.findById(buyerId).lean()
+            if(!buyer){
+                return HttpResponse.respondError(res,"Buyer not Found!",StatusCodes.NOT_FOUND)
             }
-            await Admin.findByIdAndDelete(adminId)
-            HttpResponse.respondResult(res,"Admin deleted Successfully !")
+            HttpResponse.respondResult(res,buyer)
         } catch (error) {
             HttpResponse.respondError(res,error)
         }
     }
 
-     async create(req: express.Request, res: express.Response): Promise<void> {
-        const username: string = req.body.username 
-        const email: string = req.body.email 
-        const phoneNum: number = req.body.phoneNum
-        const password: string = req.body.password
-        const role: number = req.body.role 
+    async delete(req: express.Request, res: express.Response): Promise<void> {
+        const buyerId: string = req.params.id 
 
         try {
-            //Check if there's already with required username
-            const admin = await Admin.findOne({email}).lean()
-
-            if(admin) {
-               return HttpResponse.respondError(res,"There's already a user with this email",StatusCodes.CONFLICT)
+            const buyer = await Buyer.findById(buyerId)
+            if(!buyer) {
+                return HttpResponse.respondError(res,"Buyer not Found!",StatusCodes.NOT_FOUND)
             }
+            await Buyer.findByIdAndDelete(buyerId)
+            HttpResponse.respondResult(res,"Buyer Deleted Successfully!")
+        } catch (error) {
+            HttpResponse.respondError(res,error)
+        }
+    }
 
-            await Admin.create({
+    async create(req: express.Request, res: express.Response): Promise<void> {
+        const username: string = req.body.username
+        const email: string = req.body.email
+        const password: string = req.body.password 
+        const phoneNum: string = req.body.phoneNum
+        const address: string = req.body.address
+        const role: number = req.body.role
+
+        try {
+            //Check if there's already with required Username and email
+            const buyer = await Buyer.findOne({email}).lean()
+            if(buyer){
+                 return HttpResponse.respondError(res,"This user email is already used!",StatusCodes.CONFLICT)
+            }
+            await Buyer.create({
                 username,
                 email,
-                phoneNum,
                 password,
+                phoneNum,
+                address,
                 role
             })
-            HttpResponse.respondStatus(res,"Admin created successfully!")
+            HttpResponse.respondStatus(res,"Buyer Created Successfully1")
         } catch (error) {
             HttpResponse.respondError(res,error)
         }
@@ -67,9 +65,9 @@ class AdminController{
 
     async getAll(req: express.Request, res: express.Response): Promise<void> {
         try {
-            const admin = await Admin.find().lean()
+            const admin = await Buyer.find().lean()
             if(!admin) {
-                return HttpResponse.respondError(res,"Admin not Found!",StatusCodes.NOT_FOUND)
+                return HttpResponse.respondError(res,"Buyer not Found!",StatusCodes.NOT_FOUND)
              }
              HttpResponse.respondResult(res,admin)
          } catch (error) {
@@ -77,64 +75,61 @@ class AdminController{
          }
     }
 
-     async update(req: express.Request, res: express.Response): Promise<void> {
-        const adminId: string = req.params.id
-
+    async update(req: express.Request, res: express.Response): Promise<void> {
+        const buyerId: string = req.params.id 
         const username: string = req.body.username
         const phoneNum: string = req.body.phoneNum
-
-        try {
-            const admin = await Admin.findById(adminId).lean()
-
-            if (!admin) {
-                return HttpResponse.respondError(res, "Admin not found", StatusCodes.NOT_FOUND)
+        const address: string = req.body.address
+         try {
+            const buyer = await Buyer.findById(buyerId).lean()
+            if(!buyer){
+                return HttpResponse.respondError(res,"Buyer not Found!",StatusCodes.NOT_FOUND)
             }
-
-            await Admin.findByIdAndUpdate(adminId, {
+            await Buyer.findByIdAndUpdate(buyerId,{
                 username,
                 phoneNum,
+                address
             })
-
-            HttpResponse.respondStatus(res, "Admin updated successfully.")
-        } catch (error) {
-            HttpResponse.respondError(res, error)
-        }
+            HttpResponse.respondStatus(res,"Buyer Updated Successfully!")
+         } catch (error) {
+            HttpResponse.respondError(res,error)
+         }
     }
 
-     async login(req: express.Request, res: express.Response): Promise<void> {
+    async login(req: express.Request, res: express.Response): Promise<void> {
         const email: string  = req.body.emial 
         const password: string = Helper.getHashed(req.body.password)
 
         try {
-            const admin = await Admin.findOne({
+            const buyer = await Buyer.findOne({
                 email,
                 password
             }).lean()
 
-            if (!admin) {
+            if (!buyer) {
                 return HttpResponse.respondError(res, "Username or password incorrect.", StatusCodes.UNAUTHORIZED)
             }
  
-            HttpResponse.respondResult(res, admin)
+            HttpResponse.respondResult(res, buyer)
         } catch (error) {
             HttpResponse.respondError(res, error)
         }
     }
 
      async updatePassword(req: express.Request, res: express.Response): Promise<void> {
-        const adminId: string = req.params.id
+        const buyerId: string = req.body.id 
         const oldPassword: string = req.body.oldPassword
         const newPassword: string = req.body.newPassword
 
         try {
-            const admin = await Admin.findById(adminId).lean()
-            if(!admin) {
-                return HttpResponse.respondError(res,"Admin not Found",StatusCodes.NOT_FOUND)
+            const buyer = await Buyer.findById(buyerId).lean()
+            if(!buyer) {
+                return HttpResponse.respondError(res,"Buyer not Found",StatusCodes.NOT_FOUND)
             }
-            if(admin.password != oldPassword){
+            if(buyer.password != oldPassword){
                 return HttpResponse.respondError(res,"Password not match",StatusCodes.BAD_REQUEST)
             }
-            await Admin.findByIdAndUpdate(adminId,{
+            await Buyer.findByIdAndUpdate(buyerId,{
                 password: newPassword
             })
             HttpResponse.respondStatus(res,"New password updated successfully!")
@@ -149,10 +144,10 @@ class AdminController{
         const sort: any = req.query.sort || -1
 
         try {
-            const totalCount: number = await Admin.count()
+            const totalCount: number = await Buyer.count()
             const totalPages: number = Math.floor(totalCount / page) + 1
             const skip: number = (page-1) * perPage
-            const admins: any[] = await Admin.find()
+            const admins: any[] = await Buyer.find()
                 .sort({
                     createdAt: sort
                 })
@@ -177,8 +172,4 @@ class AdminController{
         HttpResponse.respondResult(res, req.user)
     }
 }
-export default AdminController
-
-
-
-
+export default BuyerController

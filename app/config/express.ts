@@ -2,9 +2,9 @@ import express from "express"
 import bodyParser from "body-parser"
 import fileUpload from "express-fileupload"
 import validator from "express-validator"
-import UserRouter from "../router/userRouter"
+import SellerRouter from "../router/sellerRouter"
 import AdminRouter from "../router/adminRouter"
-import Admin from "../models/admin"
+import BuyerRouter from "../router/buyerRouter"
 
 const app: express.Application = express()
 
@@ -21,7 +21,8 @@ app.use(function (req, res, next) {
 })
 
 //router
-app.use("/api/user",UserRouter)
 app.use("/api/admin",AdminRouter)
+app.use("/api/buyer",BuyerRouter)
+app.use("/api/seller",SellerRouter)
 
 export default app
