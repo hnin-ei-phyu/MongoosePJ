@@ -7,7 +7,6 @@ import Seller from "../models/seller"
 import Admin from "../models/admin"
 import AuthedRequest from "../interfaces/authedRequest"
 import application from "../constants/application"
-import { auth } from "googleapis/build/src/apis/adexchangebuyer2"
 
 class Auth {
      async isAdmin(req: AuthedRequest, res: express.Response, next: NextFunction): Promise<void> {

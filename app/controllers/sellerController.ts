@@ -38,7 +38,7 @@ class SellerController{
     async create(req: express.Request, res: express.Response): Promise<void> {
         const username: string = req.body.username
         const email: string = req.body.email
-        const password: string = req.body.password 
+        const password: string = Helper.getHashed(req.body.password) 
         const phoneNum: string = req.body.phoneNum
         const address: string = req.body.address
         const role: number = req.body.role
