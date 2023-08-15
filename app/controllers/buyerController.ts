@@ -38,7 +38,7 @@ class BuyerController{
     async create(req: express.Request, res: express.Response): Promise<void> {
         const username: string = req.body.username
         const email: string = req.body.email
-        const password: string = req.body.password 
+        const password: string = req.body.password
         const phoneNum: string = req.body.phoneNum
         const address: string = req.body.address
         const role: number = req.body.role
@@ -117,9 +117,9 @@ class BuyerController{
     }
 
      async updatePassword(req: express.Request, res: express.Response): Promise<void> {
-        const buyerId: string = req.body.id 
-        const oldPassword: string = req.body.oldPassword
-        const newPassword: string = req.body.newPassword
+        const buyerId: string = req.params.id 
+        const oldPassword: string = Helper.getHashed(req.body.oldPassword)
+        const newPassword: string = Helper.getHashed(req.body.newPassword)
 
         try {
             const buyer = await Buyer.findById(buyerId).lean()

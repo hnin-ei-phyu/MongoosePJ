@@ -10,6 +10,6 @@ router.get("/get-all",adminController.getAll)
 router.delete("/delete-admin/:id",adminController.delete)
 router.put("/update-password/:id",adminController.updatePassword)
 router.put("/update-info/:id",adminController.update)
-router.get("login-admin/:id",adminController.login)
+router.get("/login-admin",adminController.login)
 
 export default router

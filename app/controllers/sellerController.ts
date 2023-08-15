@@ -117,10 +117,10 @@ class SellerController{
         }
     }
 
-     async updatePassword(req: express.Request, res: express.Response): Promise<void> {
+    async updatePassword(req: express.Request, res: express.Response): Promise<void> {
         const sellerId: string = req.params.id 
-        const oldPassword: string = req.body.oldPassword
-        const newPassword: string = req.body.newPassword
+        const oldPassword: string = Helper.getHashed(req.body.oldPassword)
+        const newPassword: string =  Helper.getHashed(req.body.newPassword)
 
         try {
             const seller = await Seller.findById(sellerId).lean()

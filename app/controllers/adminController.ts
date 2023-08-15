@@ -41,7 +41,7 @@ class AdminController{
         const username: string = req.body.username 
         const email: string = req.body.email 
         const phoneNum: number = req.body.phoneNum
-        const password: string = req.body.password
+        const password: string = Helper.getHashed(req.body.password)
         const role: number = req.body.role 
 
         try {
