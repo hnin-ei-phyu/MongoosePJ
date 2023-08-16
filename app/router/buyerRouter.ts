@@ -9,6 +9,6 @@ router.get("/get-all",buyerController.getAll)
 router.delete("/delete-buyer",buyerController.delete)
 router.put("/update-password/:id",buyerController.updatePassword)
 router.put("/update-info/:id",buyerController.update)
-router.get("login-buyer/:id",buyerController.login)
+router.get("/login-buyer",buyerController.login)
 
 export default router

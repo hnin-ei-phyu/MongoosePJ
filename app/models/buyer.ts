@@ -30,7 +30,7 @@ const buyerSchema : Schema = new Schema(
             type: Number,
             min: 0,
             max: 2,
-            default: 1
+            default: 2
         }
     },
     {

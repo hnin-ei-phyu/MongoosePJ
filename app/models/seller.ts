@@ -8,6 +8,16 @@ const sellerSchema : Schema = new Schema(
             required: true,
             unique: true
         },
+        email: {
+            type: String,
+            required: true,
+            unique: true
+        },
+        password: {
+            type: String,
+            required: true
+
+        },
         phoneNum: {
             type: String,
             required: true
@@ -25,7 +35,7 @@ const sellerSchema : Schema = new Schema(
             type: Number,
             min: 0,
             max: 2,
-            default: "silver"
+            default: "1"
         },
         bio: {
             type: String,
@@ -36,10 +46,12 @@ const sellerSchema : Schema = new Schema(
             default : 3
         },
         profile: {
+            type: Number,
             required: false
         },
         registered: {
-            required: true
+            type: Number,
+            required: false
         }
     },
     {

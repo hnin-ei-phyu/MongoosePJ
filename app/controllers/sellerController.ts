@@ -40,6 +40,7 @@ class SellerController{
         const email: string = req.body.email
         const password: string = Helper.getHashed(req.body.password) 
         const phoneNum: string = req.body.phoneNum
+        const nrcNumber: string = req.body.nrcNumber
         const address: string = req.body.address
         const role: number = req.body.role
 
@@ -54,6 +55,7 @@ class SellerController{
                 email,
                 password,
                 phoneNum,
+                nrcNumber,
                 address,
                 role
             })
@@ -80,6 +82,7 @@ class SellerController{
         const sellerId: string = req.params.id 
         const username: string = req.body.username
         const phoneNum: string = req.body.phoneNum
+        const nrcNumber: string = req.body.nrcNumber
         const address: string = req.body.address
          try {
             const seller = await Seller.findById(sellerId).lean()
@@ -89,6 +92,7 @@ class SellerController{
             await Seller.findByIdAndUpdate(sellerId,{
                 username,
                 phoneNum,
+                nrcNumber,
                 address
             })
             HttpResponse.respondStatus(res,"Seller Updated Successfully!")
@@ -98,7 +102,7 @@ class SellerController{
     }
 
     async login(req: express.Request, res: express.Response): Promise<void> {
-        const email: string  = req.body.emial 
+        const email: string  = req.body.email 
         const password: string = Helper.getHashed(req.body.password)
 
         try {

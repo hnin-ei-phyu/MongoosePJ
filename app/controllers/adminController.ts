@@ -102,7 +102,7 @@ class AdminController{
     }
 
      async login(req: express.Request, res: express.Response): Promise<void> {
-        const email: string  = req.body.emial 
+        const email: string = req.body.email
         const password: string = Helper.getHashed(req.body.password)
 
         try {
@@ -123,8 +123,8 @@ class AdminController{
 
      async updatePassword(req: express.Request, res: express.Response): Promise<void> {
         const adminId: string = req.params.id
-        const oldPassword: string = req.body.oldPassword
-        const newPassword: string = req.body.newPassword
+        const oldPassword: string = Helper.getHashed(req.body.oldPassword)
+        const newPassword: string = Helper.getHashed(req.body.newPassword)
 
         try {
             const admin = await Admin.findById(adminId).lean()
