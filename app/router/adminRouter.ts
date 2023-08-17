@@ -11,5 +11,6 @@ router.delete("/delete-admin/:id",adminController.delete)
 router.put("/update-password/:id",adminController.updatePassword)
 router.put("/update-info/:id",adminController.update)
 router.get("/login-admin",adminController.login)
+router.get("/get-paginate",adminController.paginate)
 
 export default router

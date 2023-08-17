@@ -8,7 +8,7 @@ import AuthedRequest from "../interfaces/authedRequest"
 class AdminController{
 
      async get(req: express.Request,res: express.Response): Promise<void> {
-        const adminId: string = req.params.id 
+        const adminId: string = req.params.id
 
         try {
             const admin = await Admin.findById(adminId).lean()
@@ -47,8 +47,10 @@ class AdminController{
         try {
             //Check if there's already with required username
             const admin = await Admin.findOne({email}).lean()
+            
 
             if(admin) {
+
                return HttpResponse.respondError(res,"There's already a user with this email",StatusCodes.CONFLICT)
             }
 
@@ -102,6 +104,7 @@ class AdminController{
     }
 
      async login(req: express.Request, res: express.Response): Promise<void> {
+        
         const email: string = req.body.email
         const password: string = Helper.getHashed(req.body.password)
 
@@ -110,7 +113,7 @@ class AdminController{
                 email,
                 password
             }).lean()
-
+             
             if (!admin) {
                 return HttpResponse.respondError(res, "Username or password incorrect.", StatusCodes.UNAUTHORIZED)
             }

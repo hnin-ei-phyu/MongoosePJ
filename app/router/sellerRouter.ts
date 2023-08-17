@@ -10,5 +10,6 @@ router.delete("/delete-seller/:id",sellerController.delete)
 router.put("/update-password/:id",sellerController.updatePassword)
 router.put("/update-info/:id",sellerController.update)
 router.get("/login-seller",sellerController.login)
+router.get("/get-paginate",sellerController.paginate)
 
 export default router

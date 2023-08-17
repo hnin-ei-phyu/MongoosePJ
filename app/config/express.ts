@@ -5,6 +5,9 @@ import validator from "express-validator"
 import SellerRouter from "../router/sellerRouter"
 import AdminRouter from "../router/adminRouter"
 import BuyerRouter from "../router/buyerRouter"
+import AuctionRouter from "../router/auctionRouter"
+import ComplainSectionRouter from "../router/complainSectionRouter"
+import ConsultationRouter from "../router/consultationRouter"
 
 const app: express.Application = express()
 
@@ -24,5 +27,8 @@ app.use(function (req, res, next) {
 app.use("/api/admin",AdminRouter)
 app.use("/api/buyer",BuyerRouter)
 app.use("/api/seller",SellerRouter)
+app.use("/api/auction",AuctionRouter)
+app.use("/api/complainSection",ComplainSectionRouter)
+app.use("/api/consultation",ConsultationRouter)
 
 export default app
