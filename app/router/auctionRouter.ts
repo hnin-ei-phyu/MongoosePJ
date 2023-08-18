@@ -8,7 +8,7 @@ router.post("/create-auction",auctionController.create)
 router.get("/get-all",auctionController.getAll)
 router.put("/update-auction/:id",auctionController.update)
 router.get("/get-paginate",auctionController.paginate)
-router.delete("/delete-auction",auctionController.delete)
+router.delete("/delete-auction/:id",auctionController.delete)
 
 export default router 
 

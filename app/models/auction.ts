@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import mongoose, { Schema, model } from "mongoose"
 
 const auctionSchema: Schema = new Schema (
     {
@@ -27,8 +27,7 @@ const auctionSchema: Schema = new Schema (
                 required: true
         },
         owner: {
-                type: Schema.Types.ObjectId,
-                required: true,
+                type: mongoose.Types.ObjectId,
                 ref: "Seller"
         }
     },

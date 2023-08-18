@@ -10,7 +10,7 @@ class AcutionController{
 
         try {
             const auction = await Auction.findById(auctionId)
-                .populate("seller", "_id uesrname phoneNum")
+                .populate("owner", "_id uesrname phoneNum")
                 .lean()
 
                 if(!auction){
@@ -23,7 +23,7 @@ class AcutionController{
     }
 
     async delete(req: express.Request, res: express.Response): Promise<void> {
-        const auctionId: string = req.params._id
+        const auctionId: string = req.params.id
         try {
             const auction = await Auction.findById(auctionId).lean()
             if(!auction){
@@ -43,8 +43,9 @@ class AcutionController{
         const photos: string = req.body.photos
         const category: string = req.body.category
         const mine: string = req.body.mine
+           
         try {
-            await Auction.create({
+            let auction = await Auction.create({
                 title,
                 startPrice,
                 endDate,
@@ -52,12 +53,13 @@ class AcutionController{
                 category,
                 mine
             })
-            HttpResponse.respondStatus(res,"Auction created successfully!")
+            auction = await auction.populate('owner')
+            HttpResponse.respondResult(res,auction)
         } catch (error) {
             HttpResponse.respondError(res,error)
         }
     }
-
+    
     async getAll(req: express.Request,res: express.Response): Promise<void> {
         try {
             const auction = await Auction.find().lean()
@@ -113,7 +115,7 @@ class AcutionController{
                 })
                 .skip(skip)
                 .limit(perPage)
-                .populate("selller", "_id usename phoneNum")
+                .populate("owner", "_id usename phoneNum")
                 .lean()
 
             const pagination = {

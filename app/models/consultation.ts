@@ -1,9 +1,10 @@
 import { Schema, model } from "mongoose"
+import mongoose from "mongoose"
 
 const consultationSchema: Schema = new Schema(
     {
         itemId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             required: true
         },
         question: {
@@ -11,7 +12,7 @@ const consultationSchema: Schema = new Schema(
             required: true
         },
         requestedBy: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "Byuer"
         },
