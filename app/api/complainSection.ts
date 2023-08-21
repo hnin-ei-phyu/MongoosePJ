@@ -1,4 +1,5 @@
 import axios from "axios"
+import { string } from "joi"
 
 class ComplainSection {
     root: string = "http://localhost:3000/api/complainSection"
@@ -20,6 +21,11 @@ class ComplainSection {
 
     async update(updateField: object, token: any =false){
         let headers: any = {}
+        updateField = {
+            userToReport: string,
+            reason: string,
+            photo: string
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.put(`${this.root}/update-complainSection/${this.complainSectionId}`,updateField,{headers})
@@ -53,6 +59,11 @@ class ComplainSection {
 
     async create(document: object,token: any = false) {
         let headers: any = {}
+        document = {
+            userToReport: string,
+            reason: string,
+            photo: string
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.post(`${this.root}/create-complainSection`,document,{headers})

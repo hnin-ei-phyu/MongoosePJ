@@ -8,6 +8,9 @@ import BuyerRouter from "../router/buyerRouter"
 import AuctionRouter from "../router/auctionRouter"
 import ComplainSectionRouter from "../router/complainSectionRouter"
 import ConsultationRouter from "../router/consultationRouter"
+import ContactRouter from "../router/contactRouter"
+import NewsRouter from "../router/newsRouter"
+import News from "../models/news"
 
 const app: express.Application = express()
 
@@ -30,5 +33,7 @@ app.use("/api/seller",SellerRouter)
 app.use("/api/auction",AuctionRouter)
 app.use("/api/complainSection",ComplainSectionRouter)
 app.use("/api/consultation",ConsultationRouter)
+app.use("/api/contact",ContactRouter)
+app.use("/api/news",NewsRouter)
 
 export default app

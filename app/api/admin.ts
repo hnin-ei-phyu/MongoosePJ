@@ -1,4 +1,5 @@
 import axios from "axios"
+import { string } from "joi"
 
 class Admin {
     root: string = "http://localhost:3000/api/admin"
@@ -20,6 +21,10 @@ class Admin {
 
     async updateInfo(updateField: object, token: any =false){
         let headers: any = {}
+        updateField = {
+            username: string,
+            phoneNum: string
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.put(`${this.root}/update-info/${this.adminId}`,updateField,{headers})
@@ -31,6 +36,9 @@ class Admin {
 
     async updatePassword(updateField: object, token: any= false){
         let headers: any = {}
+        updateField = {
+            password: string
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.put(`${this.root}/update-password/${this.adminId}`,updateField,{headers})
@@ -64,6 +72,13 @@ class Admin {
 
     async create(document: object,token: any = false) {
         let headers: any = {}
+        document = {
+                username: string,
+                email: string,
+                phoneNum: string,
+                password: string,
+                role: Number
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.post(`${this.root}/create-admin`,document,{headers})

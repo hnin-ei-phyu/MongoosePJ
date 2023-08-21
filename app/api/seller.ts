@@ -1,4 +1,5 @@
 import axios from "axios"
+import { string } from "joi"
 
 class Seller {
     root: string = "http://localhost:3000/api/seller"
@@ -20,6 +21,11 @@ class Seller {
 
     async updateInfo(updateField: object, token: any =false){
         let headers: any = {}
+        updateField = {
+            username: string,
+            phoneNum: string,
+            address: string
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.put(`${this.root}/update-info/${this.sellerId}`,updateField,{headers})
@@ -64,6 +70,15 @@ class Seller {
 
     async create(document: object,token: any = false) {
         let headers: any = {}
+        document = {
+                username: string,
+                email: string,
+                password: string,
+                phoneNum: string,
+                nrcNumber: string,
+                address: string,
+                role: Number
+        }
         if(token) headers["x-access-token"] = token
         try {
             let result = await axios.post(`${this.root}/create-seller`,document,{headers})
