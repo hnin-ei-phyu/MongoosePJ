@@ -2,6 +2,7 @@ import Consultation from "../models/consultation";
 import express from "express"
 import HttpResponse from "../utilities/httpResponse";
 import { StatusCodes } from "http-status-codes"
+import Buyer from "../models/buyer"
 
 
 class ConsultationController{
@@ -34,14 +35,16 @@ class ConsultationController{
     }
 
     async create(req: express.Request,res: express.Response): Promise<void> {
-        const itemId: string = req.body.itemId
+ 
+    
         const question: string = req.body.question
-        const requestedBy: string = req.body.requestedBy
-            .populate("buyer", "_id username phoneNumber")
+        const requestedBy = await Buyer.findOne().populate("_id")
+        .populate("username")
+        .populate("phoneNum")
 
         try {
             const data = await Consultation.create({
-                itemId,
+
                 question,
                 requestedBy
             })

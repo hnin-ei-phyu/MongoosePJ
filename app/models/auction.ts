@@ -28,6 +28,7 @@ const auctionSchema: Schema = new Schema (
         },
         owner: {
                 type: mongoose.Types.ObjectId,
+                required: true,
                 ref: "Seller"
         }
     },

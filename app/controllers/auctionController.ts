@@ -2,6 +2,7 @@ import Auction from "../models/auction"
 import express from "express"
 import HttpResponse from "../utilities/httpResponse"
 import { StatusCodes } from "http-status-codes"
+import Seller from "../models/seller"
 
 class AcutionController{
 
@@ -37,24 +38,28 @@ class AcutionController{
     }
 
     async create(req: express.Request, res: express.Response): Promise<void> {
+
         const title: string = req.body.title
         const startPrice: number = req.body.startPrice
         const endDate: string = req.body.endDate
         const photos: string = req.body.photos
         const category: string = req.body.category
         const mine: string = req.body.mine
-           
+        const owner = await Seller.findOne().populate("username","phoneNum")
+          
         try {
+            
             let auction = await Auction.create({
                 title,
                 startPrice,
                 endDate,
                 photos,
                 category,
-                mine
+                mine,
+                owner
             })
-            auction = await auction.populate('owner')
-            HttpResponse.respondResult(res,auction)
+            await auction.save()
+            HttpResponse.respondStatus(res,"Auction created successfully!")
         } catch (error) {
             HttpResponse.respondError(res,error)
         }
