@@ -128,7 +128,7 @@ class NewsController {
             const totalCount: number = await News.count()
             const totalPages: number = Math.floor(totalCount / page) + 1
             const skip: number = (page-1) * perPage
-            const admins: any[] = await News.find()
+            const news: any[] = await News.find()
                 .sort({
                     createdAt: sort
                 })
@@ -140,9 +140,9 @@ class NewsController {
                     lastPage: totalPages,perPage,
                     currentPage: page,
                     total: totalCount,
-                    count: admins.length
+                    count: news.length
                 }
-                HttpResponse.respondPagination(res,admins,pagination)
+                HttpResponse.respondPagination(res,news,pagination)
         } catch (error) {
             HttpResponse.respondError(res, error)
         }

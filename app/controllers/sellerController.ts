@@ -152,7 +152,7 @@ class SellerController{
             const totalCount: number = await Seller.count()
             const totalPages: number = Math.floor(totalCount / page) + 1
             const skip: number = (page-1) * perPage
-            const admins: any[] = await Seller.find()
+            const sellers: any[] = await Seller.find()
                 .sort({
                     createdAt: sort
                 })
@@ -164,9 +164,9 @@ class SellerController{
                     lastPage: totalPages,perPage,
                     currentPage: page,
                     total: totalCount,
-                    count: admins.length
+                    count: sellers.length
                 }
-                HttpResponse.respondPagination(res,admins,pagination)
+                HttpResponse.respondPagination(res,sellers,pagination)
         } catch (error) {
             HttpResponse.respondError(res, error)
         }
