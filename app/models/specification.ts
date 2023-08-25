@@ -16,6 +16,9 @@ const specificationSchema: Schema = new Schema(
         values: {
             type: Array, "default": [],
         }
+    },
+    {
+        timestamps: true
     }
 )
 const Specification = model("Specification",specificationSchema)

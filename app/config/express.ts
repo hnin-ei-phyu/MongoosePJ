@@ -11,8 +11,11 @@ import ConsultationRouter from "../router/consultationRouter"
 import ContactRouter from "../router/contactRouter"
 import NewsRouter from "../router/newsRouter"
 import MerchandiseRouter from "../router/merchandiseRouter"
-import PrivacyRouter from "../router/privacuRouter"
-
+import PrivacyRouter from "../router/privacyRouter"
+import SpecificationRouter from "../router/specificationRouter"
+import SMSRouter from "../router/smsRouter"
+import ShopRouter from "../router/shopRouter"
+import NotificationRouter from "../router/notificatoinRouter"
 const app: express.Application = express()
 
 app.use(bodyParser.json())
@@ -38,5 +41,9 @@ app.use("/api/contact",ContactRouter)
 app.use("/api/news",NewsRouter)
 app.use("/api/merchandise",MerchandiseRouter)
 app.use("/api/privacy",PrivacyRouter)
+app.use("/api/specification",SpecificationRouter)
+app.use("/api/sms",SMSRouter)
+app.use("/api/shop",ShopRouter)
+app.use("/api/notification",NotificationRouter)
 
 export default app

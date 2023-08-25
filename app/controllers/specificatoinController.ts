@@ -20,4 +20,31 @@ class SpecificationController{
             HttpResponse.respondError(res,error)
         }
     }
+
+    async get(req: express.Request, res: express.Response): Promise<void> {
+        const specificationId: string = req.params.id 
+        try {
+            const specification = await Specification.findById(specificationId).lean()
+            if(!specification) {
+                return HttpResponse.respondError(res, "Specificatoin Not Found!",StatusCodes.NOT_FOUND)
+            }
+            HttpResponse.respondResult(res,specification)
+        } catch (error) {
+            HttpResponse.respondError(res,error)
+        }
+    }
+
+    async getAll(req: express.Request,res: express.Response): Promise<void> {
+        try {
+            const specification = await Specification.find().lean()
+            if(!specification) {
+                return HttpResponse.respondError(res,"Specification Not Found!",StatusCodes.NOT_FOUND)
+            }
+            HttpResponse.respondResult(res,specification)
+        } catch (error) {
+            HttpResponse.respondError(res,error)
+        }
+    }
 }
+
+export default SpecificationController
